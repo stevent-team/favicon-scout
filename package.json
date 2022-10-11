@@ -1,15 +1,26 @@
 {
-  "name": "favicon-scout",
+  "name": "@stevent-team/favicon-scout",
   "version": "0.0.1",
   "description": "A web service to fetch the favicon of any website",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "build": "esbuild src/index.ts --platform=node --target=node16 --format=cjs --bundle --external:./node_modules/* --minify --outfile=dist/index.js",
     "dev": "nodemon --exec \"yarn build && yarn start\" --watch src --ext ts,js"
   },
+  "dependencies": {
+    "fastify": "^4.8.1",
+    "node-fetch": "2.x.x",
+    "node-html-parser": "^6.1.1",
+    "sharp": "^0.31.1",
+    "sharp-ico": "^0.1.5"
+  },
   "devDependencies": {
-    "esbuild": "^0.15.10"
+    "@types/node": "^18.8.4",
+    "@types/node-fetch": "^2.6.2",
+    "@types/sharp": "^0.31.0",
+    "esbuild": "^0.15.10",
+    "nodemon": "^2.0.20"
   }
 }
