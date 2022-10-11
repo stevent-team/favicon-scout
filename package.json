@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "esbuild src/index.ts --platform=node --target=node16 --format=cjs --bundle --external:./node_modules/* --minify --outfile=dist/index.js",
-    "dev": "nodemon --exec \"yarn build && yarn start\" --watch src --ext ts,js"
+    "dev": "nodemon --exec \"yarn build && yarn start\" --watch src --ext ts,js",
+    "lint": "eslint --ext .ts src"
   },
   "dependencies": {
     "fastify": "^4.8.1",
@@ -20,7 +21,11 @@
     "@types/node": "^18.8.4",
     "@types/node-fetch": "^2.6.2",
     "@types/sharp": "^0.31.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "esbuild": "^0.15.10",
-    "nodemon": "^2.0.20"
+    "eslint": "^8.25.0",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.8.4"
   }
 }
