@@ -1,0 +1,13 @@
+{
+  "name": "favicon-scout",
+  "version": "0.0.1",
+  "description": "A web service to fetch the favicon of any website",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.15.10"
+  }
+}
