@@ -6,8 +6,8 @@ const server = fastify()
 
 server.get('/', () => ({ name, version }))
 
-server.get('/:url', getFavicon)
-server.get('/:url/:size', getFavicon)
+server.get('/:path', getFavicon)
+server.get('/:path/:size', getFavicon)
 
 server.listen({ port: 3002 }).catch(e => {
   server.log.error(e)
