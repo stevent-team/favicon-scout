@@ -55,7 +55,7 @@ const getFavicon = async (req: FastifyRequest, res: FastifyReply) => {
   let image: Sharp = await fetchImage(imageUrl).catch(() => sharp(fallback(url.host)))
   res.type('image/webp')
 
-  if (size) {
+  if (size && !Number.isNaN(parseInt(size))) {
     image = image.resize(parseInt(size), undefined, {
       fit: 'contain',
       background: { r: 0, g: 0, b: 0, alpha: 0 },
