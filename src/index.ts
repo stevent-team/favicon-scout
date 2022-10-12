@@ -3,7 +3,7 @@ import cors from '@fastify/cors'
 import dotenv from 'dotenv'
 
 import { name, version } from '../package.json'
-import getFavicon from './favicon'
+import getFavicon from './getFavicon'
 
 // Pull list of allowed origins from .env, default to * if not set
 dotenv.config()
