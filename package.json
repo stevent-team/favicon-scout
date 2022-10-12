@@ -11,6 +11,8 @@
     "lint": "eslint --ext .ts src"
   },
   "dependencies": {
+    "@fastify/cors": "^8.1.0",
+    "dotenv": "^16.0.3",
     "fastify": "^4.8.1",
     "node-fetch": "2.x.x",
     "node-html-parser": "^6.1.1",
