@@ -1,11 +1,27 @@
-const fallback = (domain: string): Buffer => {
-  const svg = `<?xml version="1.0" encoding="utf-8"?>
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-    <rect fill="#666666" width="256" height="256"/>
-    <text fill="#FFFFFF" x="50%" y="50%" dominant-baseline="central" dy=".35em" text-anchor="middle" style="font-family:sans-serif;font-size:150px;">${String.fromCodePoint(domain.codePointAt(0) ?? 32).toLocaleUpperCase()}</text>
-  </svg>`
+import sharp, { Sharp } from 'sharp'
 
-  return Buffer.from(svg)
+const fallback = (domain: string, sizeString: string | undefined): Sharp => {
+  const size: number = sizeString ? parseInt(sizeString) || 256 : 256
+
+  return sharp({
+    text: {
+      text: `<span foreground="#FFFFFF" background="#666666">${String.fromCodePoint(domain.codePointAt(0) ?? 32).toLocaleUpperCase()}</span>`,
+      align: 'center',
+      rgba: true,
+      width: size,
+      height: size,
+      font: 'sans-serif'
+    },
+  }).resize(size/2, size/2, {
+    fit: 'contain',
+    background: { r: 102, b: 102, g: 102, alpha: 1 },
+  }).extend({
+    top: size/4,
+    left: size/4,
+    right: size/4,
+    bottom: size/4,
+    background: { r: 102, b: 102, g: 102, alpha: 1 },
+  })
 }
 
 export default fallback

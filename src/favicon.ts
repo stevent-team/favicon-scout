@@ -52,16 +52,18 @@ const getFavicon = async (req: FastifyRequest, res: FastifyReply) => {
   const imageUrl = await getUrlFromLink(url).catch(() => new URL('favicon.ico', url.origin))
 
   // Fetch the image, or use a fallback if it fails
-  let image: Sharp = await fetchImage(imageUrl).catch(() => sharp(fallback(url.host)))
-  res.type('image/webp')
+  const image: Sharp = await fetchImage(imageUrl).then(image => {
+    if (size && !Number.isNaN(parseInt(size))) {
+      return image.resize(parseInt(size), undefined, {
+        fit: 'contain',
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
+      })
+    }
+    return image
+  }).catch(() => fallback(url.host, size))
 
-  if (size && !Number.isNaN(parseInt(size))) {
-    image = image.resize(parseInt(size), undefined, {
-      fit: 'contain',
-      background: { r: 0, g: 0, b: 0, alpha: 0 },
-    })
-  }
-  return image.webp().toBuffer().catch(() => sharp(fallback(url.host)).webp().toBuffer())
+  res.type('image/webp')
+  return image.webp().toBuffer().catch(() => fallback(url.host, size).webp().toBuffer())
 }
 
 export default getFavicon
