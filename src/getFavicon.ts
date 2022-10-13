@@ -25,11 +25,18 @@ const getFavicon = async (req: FastifyRequest, res: FastifyReply) => {
         background: { r: 0, g: 0, b: 0, alpha: 0 },
       })
     }
+    res.header('x-fallback', 'false')
     return image
-  }).catch(() => fallback(url.host, size))
+  }).catch(() => {
+    res.header('x-fallback', 'true')
+    return fallback(url.host, size)
+  })
 
   res.type('image/webp')
-  return image.webp().toBuffer().catch(() => fallback(url.host, size).webp().toBuffer())
+  return image.webp().toBuffer().catch(() => {
+    res.header('x-fallback', 'true')
+    return fallback(url.host, size).webp().toBuffer()
+  })
 }
 
 export default getFavicon
