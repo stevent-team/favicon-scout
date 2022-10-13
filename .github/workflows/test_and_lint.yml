@@ -10,9 +10,6 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    env:
-      npm_config_platform: linux
-      npm_config_arch: x86
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -20,7 +17,6 @@ jobs:
         node-version: 17
         cache: 'yarn'
         cache-dependency-path: '**/yarn.lock'
-    - run: echo "arch=x64\nplatform=linux" > .npmrc
     - run: yarn install --immutable
     - run: yarn lint
     - run: yarn test
