@@ -8,8 +8,13 @@ const fetchImage = async (url: URL): Promise<Sharp> => {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 5000)
 
-  //@ts-ignore signal types invalid
-  const res = await fetch(url, { signal: controller.signal })
+  const res = await fetch(url, {
+    //@ts-ignore signal types invalid
+    signal: controller.signal,
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
+    },
+  })
   if (!res?.ok) throw new Error('Cannot fetch favicon')
   clearTimeout(timeoutId)
 
