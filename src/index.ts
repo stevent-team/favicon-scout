@@ -13,7 +13,7 @@ const startServer = ({ port, host, origins }) => {
     console.log(`🧭 Favicon Scout v${version} running at http://${host}:${port}`)
     console.log(`Allowing requests from: ${origin}`)
   }).catch(e => {
-    app.log.error(e)
+    console.error(e)
     process.exit(1)
   })
 }
