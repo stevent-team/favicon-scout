@@ -1,5 +1,11 @@
 # @stevent-team/favicon-scout
 
+## 1.0.1
+
+### Patch Changes
+
+- 7f7773e: Specify external deps in build command due to [this esbuild bug](https://github.com/evanw/esbuild/issues/1958)
+
 ## 1.0.0
 
 ### Major Changes
