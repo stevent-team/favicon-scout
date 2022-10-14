@@ -1,0 +1,39 @@
+{
+  "successful": [
+    "google.com",
+    "discord.com",
+    "facebook.com",
+    "github.com",
+    "stevent.club",
+    "npmjs.com",
+    "mail.google.com",
+    "youtube.com",
+    "twitter.com",
+    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "https://twitter.com/BenKoder/status/1525838706229518338?s=20&t=ArjAe6jsK9uv769_C3JiHQ",
+    "outlook.com",
+    "https://medium.com",
+    "netflix.com",
+    "disneyplus.com",
+    "ewanb.me",
+    "esbuild.github.io",
+    "notion.so",
+    "www.atlassian.com",
+    "web.dev",
+    "caniuse.com",
+    "w3.org",
+    "developer.mozilla.org",
+    "twitch.tv",
+    "stackoverflow.com",
+    "amazon.com",
+    "lucide.dev",
+    "djsabrinatheteenagedj.com"
+  ],
+  "fallback": [
+    "example.com",
+    "https://example.net/test",
+    "fake",
+    "https://formidable.com/open-source/urql/docs/graphcache/",
+    "https://clubs.msa.monash.edu/joinnow/clubs-and-societies/"
+  ]
+}
