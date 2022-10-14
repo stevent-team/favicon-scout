@@ -1,5 +1,11 @@
 # @stevent-team/favicon-scout
 
+## 1.0.2
+
+### Patch Changes
+
+- 21832f8: Fix error log when program fails to start the server
+
 ## 1.0.1
 
 ### Patch Changes
