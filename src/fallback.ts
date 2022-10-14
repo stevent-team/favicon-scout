@@ -12,14 +12,14 @@ const fallback = (domain: string, sizeString: string | undefined): Sharp => {
       height: size,
       font: 'sans-serif'
     },
-  }).resize(size/2, size/2, {
+  }).resize(Math.ceil(size/2), Math.ceil(size/2), {
     fit: 'contain',
     background: { r: 102, b: 102, g: 102, alpha: 1 },
   }).extend({
-    top: size/4,
-    left: size/4,
-    right: size/4,
-    bottom: size/4,
+    top: Math.ceil(size/4),
+    left: Math.ceil(size/4),
+    right: Math.ceil(size/4),
+    bottom: Math.ceil(size/4),
     background: { r: 102, b: 102, g: 102, alpha: 1 },
   })
 }

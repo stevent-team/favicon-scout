@@ -1,5 +1,6 @@
 import { parse } from 'node-html-parser'
 import fetch from 'node-fetch'
+import { requestHeaders } from './constants'
 
 // Try and find the link to an icon from a page's <link> tags
 const scrapeLink = async (url: URL): Promise<URL> => {
@@ -7,8 +8,11 @@ const scrapeLink = async (url: URL): Promise<URL> => {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 5000)
 
-  //@ts-ignore signal types invalid
-  const res = await fetch(url.href, { signal: controller.signal })
+  const res = await fetch(url.href, {
+    //@ts-ignore signal types invalid
+    signal: controller.signal,
+    headers: requestHeaders,
+  })
   if (!res?.ok) throw new Error('Cannot fetch webpage')
   clearTimeout(timeoutId)
 
@@ -16,7 +20,7 @@ const scrapeLink = async (url: URL): Promise<URL> => {
   const links = page.querySelectorAll('link[rel*="icon"]')
     .filter(link => link.attributes?.href && !/prefers-color-scheme: *dark/.test(link.attributes?.media))
     .sort((a, b) => parseInt(a.attributes.sizes?.split('x')?.[0]) - parseInt(b.attributes.sizes?.split('x')?.[0]))
-    .map(link => new URL(link.attributes.href, new URL(res.url).origin))
+    .map(link => new URL(link.attributes.href, link.attributes.href.startsWith('http') ? undefined : new URL(res.url).origin))
   if (links.length > 0) return links.reverse()[0]
 
   throw new Error('No links found')
