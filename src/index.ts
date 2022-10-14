@@ -10,7 +10,7 @@ const startServer = ({ port, host, origins }) => {
   const app = createApp(origin)
 
   app.listen({ port, host }).then(() => {
-    console.log(`🧭 Favicon Scout v${version} running at http://localhost:${port}`)
+    console.log(`🧭 Favicon Scout v${version} running at http://${host}:${port}`)
     console.log(`Allowing requests from: ${origin}`)
   }).catch(e => {
     app.log.error(e)
