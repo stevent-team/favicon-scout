@@ -1,5 +1,8 @@
 # 🧭 Favicon Scout
 
+[![npm version](https://img.shields.io/npm/v/@stevent-team/favicon-scout)](https://www.npmjs.com/package/@stevent-team/favicon-scout)
+[![minzip size](https://img.shields.io/bundlephobia/minzip/@stevent-team/favicon-scout)](https://bundlephobia.com/package/@stevent-team/favicon-scout)
+
 A web service to fetch the favicon of any website. Includes fallback options.
 
 ## Usage
@@ -49,3 +52,13 @@ By default, any origin is allowed to request from this API. To lock it down, use
 Run `yarn` to install dependencies. Run `yarn dev` to watch for changes and rerun.
 
 Run `yarn build` to build to `/dist/index.js`.
+
+## Contributing
+
+If you have any feedback or find a website that favicon scout can't correctly find the favicon for, [create an issue](https://github.com/stevent-team/favicon-scout/issues/new/choose). Contributions are welcome.
+
+This library uses [changesets](https://github.com/changesets/changesets). If the changes you've made would constitute a version bump, run `yarn changeset` and follow the prompts to document the changes you've made. Changesets are consumed on releases, and used to generate a changelog and bump version number.
+
+## License
+
+Created by Stevent (2022) and licensed under MIT

@@ -7,6 +7,8 @@
     "scraper",
     "icon"
   ],
+  "repository": "https://github.com/stevent-team/favicon-scout",
+  "author": "Stevent",
   "license": "MIT",
   "main": "dist/index.js",
   "type": "module",
@@ -18,7 +20,8 @@
     "build": "esbuild src/index.ts --platform=node --target=node16 --format=esm --bundle --external:./node_modules/* --minify --outfile=dist/index.js",
     "dev": "nodemon --exec \"yarn build && yarn start\" --watch src --ext ts,js",
     "lint": "eslint --ext .ts src",
-    "test": "vitest"
+    "test": "vitest",
+    "ci:release": "yarn build && yarn changeset publish"
   },
   "dependencies": {
     "@fastify/cors": "^8.1.0",
@@ -30,6 +33,7 @@
     "sharp-ico": "^0.1.5"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.25.0",
     "@types/node": "^18.8.4",
     "@types/node-fetch": "^2.6.2",
     "@types/sharp": "^0.31.0",
