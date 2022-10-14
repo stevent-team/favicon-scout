@@ -2,19 +2,27 @@
   "name": "@stevent-team/favicon-scout",
   "version": "0.0.1",
   "description": "A web service to fetch the favicon of any website",
-  "main": "dist/index.js",
+  "keywords": [
+    "favicon",
+    "scraper",
+    "icon"
+  ],
   "license": "MIT",
-  "private": true,
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "favicon-scout": "./dist/index.js"
+  },
   "scripts": {
     "start": "node dist/index.js",
-    "build": "esbuild src/index.ts --platform=node --target=node16 --format=cjs --bundle --external:./node_modules/* --minify --outfile=dist/index.js",
+    "build": "esbuild src/index.ts --platform=node --target=node16 --format=esm --bundle --external:./node_modules/* --minify --outfile=dist/index.js",
     "dev": "nodemon --exec \"yarn build && yarn start\" --watch src --ext ts,js",
     "lint": "eslint --ext .ts src",
     "test": "vitest"
   },
   "dependencies": {
     "@fastify/cors": "^8.1.0",
-    "dotenv": "^16.0.3",
+    "commander": "^9.4.1",
     "fastify": "^4.8.1",
     "node-fetch": "2.x.x",
     "node-html-parser": "^6.1.1",
