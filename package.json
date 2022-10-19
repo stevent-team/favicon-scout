@@ -1,6 +1,6 @@
 {
   "name": "@stevent-team/favicon-scout",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A web service to fetch the favicon of any website",
   "keywords": [
     "favicon",

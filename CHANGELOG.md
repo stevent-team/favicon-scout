@@ -1,5 +1,11 @@
 # @stevent-team/favicon-scout
 
+## 1.1.0
+
+### Minor Changes
+
+- 37c9577: Implement get command to immediately fetch a favicon
+
 ## 1.0.2
 
 ### Patch Changes
