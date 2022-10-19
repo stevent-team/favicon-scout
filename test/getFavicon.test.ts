@@ -18,13 +18,13 @@ describe('getFavicon', async () => {
   // Successful favicons
   await fetchURLs(testURLs.successful).then(results => results.forEach(res => it(
     `returns a successful favicon (not a fallback) for ${res.raw.req.url}`,
-    () => expect(res.headers['x-fallback']).toBe('false'),
+    () => expect(res.headers['x-fallback']).toBe(false),
   )))
 
   // Fallback favicons
   await fetchURLs(testURLs.fallback).then(results => results.forEach(res => it(
     `returns a fallback favicon for ${res.raw.req.url}`,
-    () => expect(res.headers['x-fallback']).toBe('true'),
+    () => expect(res.headers['x-fallback']).toBe(true),
   )))
 
   // Sizes

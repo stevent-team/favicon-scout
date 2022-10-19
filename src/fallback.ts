@@ -1,8 +1,6 @@
 import sharp, { Sharp } from 'sharp'
 
-const fallback = (domain: string, sizeString: string | undefined): Sharp => {
-  const size: number = sizeString ? parseInt(sizeString) || 256 : 256
-
+const fallback = (domain: string, size = 256): Sharp => {
   return sharp({
     text: {
       text: `<span foreground="#FFFFFF" background="#666666">${String.fromCodePoint(domain.codePointAt(0) ?? 32).toLocaleUpperCase()}</span>`,

@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import sharp, { Sharp } from 'sharp'
 import ico from 'sharp-ico'
-import { requestHeaders } from './constants'
+import { REQUEST_HEADERS } from './constants'
 
 // Try and fetch the favicon from the url
 const fetchImage = async (url: URL): Promise<Sharp> => {
@@ -12,7 +12,7 @@ const fetchImage = async (url: URL): Promise<Sharp> => {
   const res = await fetch(url, {
     //@ts-ignore signal types invalid
     signal: controller.signal,
-    headers: requestHeaders,
+    headers: REQUEST_HEADERS,
   })
   if (!res?.ok) throw new Error('Cannot fetch favicon')
   clearTimeout(timeoutId)

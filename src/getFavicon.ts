@@ -1,42 +1,41 @@
-import { FastifyReply, FastifyRequest } from 'fastify'
 import { Sharp } from 'sharp'
 
 import fallback from './fallback'
 import fetchImage from './fetchImage'
 import scrapeLink from './scrapeLink'
 
-const getFavicon = async (req: FastifyRequest, res: FastifyReply) => {
-  const { path, size } = req.params as {
-    path: string,
-    size: string | undefined,
-  }
+type GetFaviconOptions = {
+  size?: number,
+}
 
-  // Create a new URL for the page
-  const url = new URL(path.startsWith('http') ? path : `https://${path}`)
+type GetFaviconResult = {
+  image: Sharp,
+  didFallback: boolean,
+}
+
+const getFavicon = async (url: URL, options: GetFaviconOptions = {}): Promise<GetFaviconResult> => {
+  // Get options
+  const { size } = options
 
   // Get the URL of the favicon, default to favicon.ico
   const imageUrl = await scrapeLink(url).catch(() => new URL('favicon.ico', url.origin))
 
   // Fetch the image, or use a fallback if it fails
-  const image: Sharp = await fetchImage(imageUrl).then(image => {
-    if (size && !Number.isNaN(parseInt(size))) {
-      return image.resize(parseInt(size), undefined, {
+  const imageResult: Sharp | null = await fetchImage(imageUrl)
+    .then(image => size
+      ? image.resize(size, undefined, {
         fit: 'contain',
         background: { r: 0, g: 0, b: 0, alpha: 0 },
       })
-    }
-    res.header('x-fallback', 'false')
-    return image
-  }).catch(() => {
-    res.header('x-fallback', 'true')
-    return fallback(url.host, size)
-  })
+      : image
+    )
+    .catch(() => null)
 
-  res.type('image/webp')
-  return image.webp().toBuffer().catch(() => {
-    res.header('x-fallback', 'true')
-    return fallback(url.host, size).webp().toBuffer()
-  })
+  // Resolve fallback
+  return {
+    image: imageResult ?? fallback(url.host, size),
+    didFallback: imageResult === null
+  }
 }
 
 export default getFavicon

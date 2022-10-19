@@ -1,6 +1,6 @@
 import { parse } from 'node-html-parser'
 import fetch from 'node-fetch'
-import { requestHeaders } from './constants'
+import { REQUEST_HEADERS } from './constants'
 
 // Try and find the link to an icon from a page's <link> tags
 const scrapeLink = async (url: URL): Promise<URL> => {
@@ -11,7 +11,7 @@ const scrapeLink = async (url: URL): Promise<URL> => {
   const res = await fetch(url.href, {
     //@ts-ignore signal types invalid
     signal: controller.signal,
-    headers: requestHeaders,
+    headers: REQUEST_HEADERS,
   })
   if (!res?.ok) throw new Error('Cannot fetch webpage')
   clearTimeout(timeoutId)

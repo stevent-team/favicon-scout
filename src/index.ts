@@ -1,34 +1,28 @@
 #!/usr/bin/env node
-import { InvalidArgumentError, program } from 'commander'
-import createApp from './server'
+import { program } from 'commander'
+
 import { version } from '../package.json'
-
-const startServer = ({ port, host, origins }) => {
-  // If origins is an array, transform regexes
-  const origin: (string | RegExp)[] | string = Array.isArray(origins) ? origins.map(o => (o.startsWith('/') && o.endsWith('/')) ? new RegExp(o.slice(1,-1)) : o) : origins
-
-  const app = createApp(origin)
-
-  app.listen({ port, host }).then(() => {
-    console.log(`🧭 Favicon Scout v${version} running at http://${host}:${port}`)
-    console.log(`Allowing requests from: ${origin}`)
-  }).catch(e => {
-    console.error(e)
-    process.exit(1)
-  })
-}
+import { parseIntArgument } from './util'
+import { startServerCommand, getFaviconCommand } from './commands'
 
 program
   .name('favicon-scout')
-  .description('Start a favicon scout web server')
+  .description('🧭 Scout for favicons')
   .version(version)
-  .option('-p, --port <port>', 'port to use for http server', v => {
-    const parsed = parseInt(v)
-    if (isNaN(parsed)) throw new InvalidArgumentError('Not a valid number')
-    return parsed
-  }, 3000)
+
+program.command('serve', { isDefault: true })
+  .description('Start a favicon scout web server')
+  .option('-p, --port <port>', 'port to use for http server', parseIntArgument, 3000)
   .option('-h, --host <url>', 'host to use for http server', 'localhost')
   .option('-o, --origins <urls...>', 'urls or regexes allowed by CORS', '*')
-  .action(startServer)
+  .action(startServerCommand)
+
+program.command('get')
+  .description('Fetch the favicon from a specified url')
+  .argument('<host>', 'host to fetch the favicon for')
+  .option('-s, --size <size>', 'rectangular pixel size of favicon', parseIntArgument, 3000)
+  .option('-o, --out <out>', 'path to save favicon to if not using stdout', undefined)
+  .option('-t, --type <type>', 'image type to save favicon (overrides file extension if provided)', 'webp')
+  .action(getFaviconCommand)
 
 program.parse()
